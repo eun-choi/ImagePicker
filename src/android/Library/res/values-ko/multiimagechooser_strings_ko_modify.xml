@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <string name="multi_app_name">이미지 선택</string>
+    <string name="free_version_label">무료 버전 - 남은 이미지: %d</string>
+    <string name="error_database">이미지 데이터베이스를 여는 데 오류가 발생했습니다. 문제를 보고하세요.</string>
+    <string name="requesting_thumbnails">썸네일 요청 중. 기다려주세요</string>
+    <string name="multi_image_picker_processing_images_title">이미지 처리 중</string>
+    <string name="multi_image_picker_processing_images_message">잠시만 기다려주세요.</string>
+    <string name="multi_image_picker_max_title">사진 갯수 초과</string>
+    <string name="multi_image_picker_max_count_1">사진은 최대 </string>
+    <string name="multi_image_picker_max_count_2">장까지 첨부할 수 있습니다.</string>
+    <string name="multi_image_picker_ok">확인</string>
+    <string name="discard">취소</string>
+    <string name="done">적용</string>
+</resources>
