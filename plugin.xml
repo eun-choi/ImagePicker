@@ -2,7 +2,7 @@
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
   id="cordova-plugin-telerik-imagepicker"
-  version="2.3.3">
+  version="2.3.6">
 
     <name>ImagePicker</name>
 
@@ -71,6 +71,9 @@
 
         <resource-file src="src/ios/GMImagePicker/GMVideoIcon.png" />
         <resource-file src="src/ios/GMImagePicker/GMVideoIcon@2x.png" />
+
+        <header-file src="src/ios/GMImagePicker/FeHourGlass.h" />
+        <source-file src="src/ios/GMImagePicker/FeHourGlass.m" />
 
         <resource-file src="src/ios/GMImagePicker/ca.lproj" />
         <resource-file src="src/ios/GMImagePicker/de.lproj" />

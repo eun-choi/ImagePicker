@@ -4,12 +4,4 @@
     <string name="free_version_label">無料版 - 残りの画像: %d</string>
     <string name="error_database">画像データベースを開く際にエラーがありました。問題を報告してください。</string>
     <string name="requesting_thumbnails">サムネイルをリクエスト中です。お待ちください。</string>
-    <string name="multi_image_picker_processing_images_title">Processing images</string>
-    <string name="multi_image_picker_processing_images_message">This may take a moment</string>
-    <string name="multi_image_picker_max_title">Maxium Photos</string>
-    <string name="multi_image_picker_max_count_1">You can only select </string>
-    <string name="multi_image_picker_max_count_2"> photos at a time.</string>
-    <string name="multi_image_picker_ok">OK</string>
-    <string name="discard">Cancel</string>
-    <string name="done">OK</string>
 </resources>

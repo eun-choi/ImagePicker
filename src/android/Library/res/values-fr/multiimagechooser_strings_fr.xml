@@ -3,12 +3,4 @@
     <string name="free_version_label">"La version gratuite - gauche Images:%d"</string>
     <string name="error_database">"Il y avait une erreur d'ouvrir la base de données images. S'il vous plaît signaler le problème."</string>
     <string name="requesting_thumbnails">"Demande de vignettes, s'il vous plaît soyez patient"</string>
-    <string name="multi_image_picker_processing_images_title">Processing images</string>
-    <string name="multi_image_picker_processing_images_message">This may take a moment</string>
-    <string name="multi_image_picker_max_title">Maxium Photos</string>
-    <string name="multi_image_picker_max_count_1">You can only select </string>
-    <string name="multi_image_picker_max_count_2"> photos at a time.</string>
-    <string name="multi_image_picker_ok">OK</string>
-    <string name="discard">Cancel</string>
-    <string name="done">OK</string>
 </resources>
