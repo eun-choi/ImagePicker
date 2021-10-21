@@ -48,6 +48,7 @@ import com.synconset.FakeR;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -57,11 +58,14 @@ import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.provider.MediaStore;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -524,7 +528,12 @@ public class MultiImageChooserActivity extends AppCompatActivity implements
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inSampleSize = 1;
                     options.inJustDecodeBounds = true;
-                    BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                    // BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                        _tryToGetBitmap(file, options);
+                    } else {
+                        BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                    }
                     int width = options.outWidth;
                     int height = options.outHeight;
                     float scale = calculateScale(width, height);
@@ -622,16 +631,64 @@ public class MultiImageChooserActivity extends AppCompatActivity implements
             finish();
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.P)
+        private Bitmap _tryToGetBitmap(File file, BitmapFactory.Options options) throws IOException, OutOfMemoryError {
+            Bitmap bmp = null;
+            String[] projection = new String[]{MediaStore.Images.ImageColumns._ID, MediaStore.Images.ImageColumns.DISPLAY_NAME, MediaStore.Images.ImageColumns.WIDTH, MediaStore.Images.ImageColumns.HEIGHT};
+            String selection = MediaStore.Images.ImageColumns.DISPLAY_NAME + " = ?";
+            String[] selectionArguments = {file.getName()};
+            Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, selection, selectionArguments, null);
+            if (cursor != null && cursor.getCount() > 0) {
+                cursor.moveToFirst();
+
+                if (options != null && options.inJustDecodeBounds) {
+                    options.outWidth = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.ImageColumns.WIDTH));
+                    options.outHeight = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.ImageColumns.HEIGHT));
+                    cursor.close();
+
+                    return null;
+                }
+
+                Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cursor.getInt(cursor.getColumnIndex(MediaStore.Images.ImageColumns._ID)));
+                cursor.close();
+
+                if (options != null) {
+                    bmp = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), imageUri), new ImageDecoder.OnHeaderDecodedListener() {
+                        public void onHeaderDecoded(ImageDecoder decoder, ImageDecoder.ImageInfo info, ImageDecoder.Source source) {
+                            decoder.setTargetSampleSize(options.inSampleSize);
+                        }
+                    });
+                } else {
+                    bmp = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), imageUri));
+                }
+            }
+
+            if (bmp == null) {
+                throw new IOException("The image file could not be opened.");
+            }
+
+            return bmp;
+        }
+
         private Bitmap tryToGetBitmap(File file,
                                       BitmapFactory.Options options,
                                       int rotate,
                                       boolean shouldScale) throws IOException, OutOfMemoryError {
             Bitmap bmp;
-            if (options == null) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                bmp = _tryToGetBitmap(file, options);
+            } else {
+                if (options == null) {
+                    bmp = BitmapFactory.decodeFile(file.getAbsolutePath());
+                } else {
+                    bmp = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+                }
+            }
+            /*if (options == null) {
                 bmp = BitmapFactory.decodeFile(file.getAbsolutePath());
             } else {
                 bmp = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
-            }
+            }*/
 
             if (bmp == null) {
                 throw new IOException("The image file could not be opened.");
