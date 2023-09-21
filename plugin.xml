@@ -108,11 +108,14 @@
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
-            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+            <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
         </config-file>
 
-        <preference name="ANDROID_SUPPORT_V7_VERSION" default="27.+"/>
-        <framework src="com.android.support:appcompat-v7:$ANDROID_SUPPORT_V7_VERSION" />
+        <preference name="ANDROIDX_CORE_VERSION" default="1.9.0"/>
+        <preference name="ANDROIDX_COMPAT_VERSION" default="1.6.1"/>
+        <framework src="androidx.core:core:$ANDROIDX_CORE_VERSION" />
+        <framework src="androidx.appcompat:appcompat:$ANDROIDX_COMPAT_VERSION" />
 
         <source-file src="src/android/com/synconset/ImagePicker/ImagePicker.java" target-dir="src/com/synconset" />
         <source-file src="src/android/com/synconset/ImagePicker/FakeR.java" target-dir="src/com/synconset" />
@@ -140,7 +143,11 @@
         <resource-file src="src/android/Library/res/layout/actionbar_done_button.xml" target="res/layout/actionbar_done_button.xml"/>
         <resource-file src="src/android/Library/res/layout/multiselectorgrid_modify.xml" target="res/layout/multiselectorgrid.xml"/>
         <resource-file src="src/android/Library/res/values/multiimagechooser_strings_en_modify.xml" target="res/values/multiimagechooser_strings_en.xml"/>
-        <resource-file src="src/android/Library/res/values/themes.xml" target="res/values/themes.xml"/>
+        <!--<resource-file src="src/android/Library/res/values/themes.xml" target="res/values/themes.xml"/>-->
+        <config-file target="res/values/themes.xml" parent="/resources">
+            <style name="MyTheme" parent="android:Theme.Holo.Light">
+            </style>
+        </config-file>
 
         <resource-file src="src/android/Library/res/values-de/multiimagechooser_strings_de.xml" target="res/values-de/multiimagechooser_strings_de.xml"/>
         <resource-file src="src/android/Library/res/values-es/multiimagechooser_strings_es.xml" target="res/values-es/multiimagechooser_strings_es.xml"/>
