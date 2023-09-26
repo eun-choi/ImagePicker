@@ -114,7 +114,7 @@
 
         <preference name="ANDROIDX_CORES_VERSION" default="1.9.0"/>
         <preference name="ANDROIDX_COMPAT_VERSION" default="1.6.1"/>
-        <framework src="androidx.core:core:$ANDROIDX_CORES_VERSION" />
+        <!--<framework src="androidx.core:core:$ANDROIDX_CORES_VERSION" />-->
         <framework src="androidx.appcompat:appcompat:$ANDROIDX_COMPAT_VERSION" />
 
         <source-file src="src/android/com/synconset/ImagePicker/ImagePicker.java" target-dir="src/com/synconset" />
