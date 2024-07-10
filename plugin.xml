@@ -112,8 +112,8 @@
             <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
         </config-file>
 
-        <preference name="ANDROIDX_CORES_VERSION" default="1.9.0"/>
-        <preference name="ANDROIDX_COMPAT_VERSION" default="1.6.1"/>
+        <preference name="ANDROIDX_CORES_VERSION" default="1.13.1"/>
+        <preference name="ANDROIDX_COMPAT_VERSION" default="1.7.0"/>
         <!--<framework src="androidx.core:core:$ANDROIDX_CORES_VERSION" />-->
         <framework src="androidx.appcompat:appcompat:$ANDROIDX_COMPAT_VERSION" />
 
